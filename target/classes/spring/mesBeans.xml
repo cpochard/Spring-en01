@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans	xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Declarez votre bean client -->
+	<bean id="adresse" class="com.exo.Adresse">
+	<property name = "codePostal" value ="44000"/>
+	<property name = "rue" value ="Chanoine Larose"/>
+	<property name = "ville" value ="Nantes"/>
+	<property name = "pays" value ="France"/>
+	</bean>
+	
+	<bean id="adresse2" class="com.exo.Adresse">
+	<constructor-arg value = "52000"/>
+	<constructor-arg value = "Maréchal Loulou"/>
+	<constructor-arg value = "Paris"/>
+	<constructor-arg value = "France"/>
+	</bean>
+
+	
+	<bean id="adresse4" class="com.exo.Adresse">
+	<constructor-arg value = "25000"/>
+	<constructor-arg value = "Marie Louise"/>
+	<constructor-arg value = "Berlin"/>
+	<constructor-arg value = "Allemagne"/>
+	</bean>
+	
+	
+	<bean id="client" class="com.exo.Client">
+		<property name = "nom" value ="Pochard"/>
+		<property name = "prenom" value ="Camille"/>
+		<property name = "age" value ="26"/>
+		<property name = "Adresse">
+	<list>
+	<ref bean="adresse"/>
+	<ref bean="adresse2"/>
+	<ref bean="adresse4"/>
+	</list>
+	</property>
+	</bean>
+	
+	<bean id="client2" class="com.exo.Client">
+		<property name = "nom" value ="Monsoor"/>
+		<property name = "prenom" value ="Misharl"/>
+		<property name = "age" value ="30"/>
+		<property name = "adresse" >
+		<bean id="adresse 3" class="com.exo.Adresse">
+			<property name="codePostal" value="35000"/>
+			<property name="rue" value="René Cassin"/>
+			<property name="ville" value="Marseille"/>
+			<property name="pays" value="France"/>
+		</bean>
+		</property>
+	</bean>
+	
+	<bean id="client3" class="com.exo.Client">
+		<property name = "nom" value ="Martin"/>
+		<property name = "prenom" value ="Michel"/>
+		<property name = "age" value ="32"/>
+		<property name = "adresse" ref ="adresse2"/>
+	</bean>
+
+<context:property-placeholder location="spring/adresses.properties"/>
+
+<bean id="adresse5" class="com.exo.Adresse" scope="singleton">
+	<property name = "codePostal" value ="${addr1.codePostal}"/>
+	<property name = "rue" value ="${addr1.rue}"/>
+	<property name = "ville" value ="${addr1.ville}"/>
+	<property name = "pays" value ="${addr1.pays}"/>
+</bean>
+
+<bean id="client4" class="com.exo.Client">
+		<property name = "nom" value ="Denier"/>
+		<property name = "prenom" value ="Laura"/>
+		<property name = "age" value ="8"/>
+		<property name = "adresse" ref ="adresse5"/>
+	</bean>
+	
+	
+
+	
+
+</beans>
